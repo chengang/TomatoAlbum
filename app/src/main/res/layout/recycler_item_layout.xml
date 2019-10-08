@@ -3,21 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="5dp"
+    android:layout_margin="2px"
     >
 
     <ImageView
         android:id="@+id/recycler_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
         />
 
     <TextView
         android:id="@+id/recycler_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         />
 
 </LinearLayout>
