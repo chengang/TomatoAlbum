@@ -18,6 +18,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     private List<String> stringList;
     private Context context;
 
+    public MainRecyclerAdapter() {}
+
+    public void setDataSet(List<String> stringList1) { stringList = stringList1; }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,9 +34,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ViewGroup.LayoutParams imageLayoutParams = holder.imageView.getLayoutParams();
+        imageLayoutParams.height = 200;
+        holder.imageView.setLayoutParams(imageLayoutParams);
         String imgurl = stringList.get(position);
-        String url = "http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg";
-        Glide.with(context).load(url).into(holder.imageView);
+        Glide.with(context).load(imgurl).into(holder.imageView);
     }
 
     @Override
@@ -47,9 +53,5 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             super(view);
             imageView = (ImageView) view.findViewById(R.id.recycler_item_image);
         }
-    }
-
-    public MainRecyclerAdapter(List<String> stringList1) {
-        stringList = stringList1;
     }
 }

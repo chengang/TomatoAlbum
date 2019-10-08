@@ -1,5 +1,6 @@
 package com.yikuyiku.android.tomatoalbum;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +21,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     SwipeRefreshLayout swipeContainer;
-    RecyclerView recyclerView;
+    MainRecyclerAdapter mainRecyclerAdapter;
+    StaggeredGridLayoutManager layoutManager;
     private List<String> stringList = new ArrayList<>();
 
     @Override
@@ -28,10 +30,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
-        MainRecyclerAdapter mainRecyclerAdapter = new MainRecyclerAdapter(stringList);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                layoutManager.invalidateSpanAssignments();
+            }
+        });
+        mainRecyclerAdapter = new MainRecyclerAdapter();
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        mainRecyclerAdapter.setDataSet(stringList);
         recyclerView.setAdapter(mainRecyclerAdapter);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -44,14 +58,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadImages() {
-        stringList.add("image1");
-        stringList.add("image2");
-        stringList.add("pic1");
-        stringList.add("pic2");
-        stringList.add("photo1");
-        stringList.add("photo2");
-        MainRecyclerAdapter mainRecyclerAdapter = new MainRecyclerAdapter(stringList);
-        recyclerView.setAdapter(mainRecyclerAdapter);
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
+        mainRecyclerAdapter.setDataSet(stringList);
+        mainRecyclerAdapter.notifyDataSetChanged();
+
         Toast.makeText(getApplicationContext(),"Loaded Images", Toast.LENGTH_LONG).show();
         swipeContainer.setRefreshing(false);
     }
