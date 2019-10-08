@@ -31,7 +31,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String imgurl = stringList.get(position);
-        holder.textView.setText(imgurl);
         String url = "http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg";
         Glide.with(context).load(url).into(holder.imageView);
     }
@@ -43,12 +42,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView textView;
 
         public ViewHolder(View view) {
             super(view);
             imageView = (ImageView) view.findViewById(R.id.recycler_item_image);
-            textView = (TextView) view.findViewById(R.id.recycler_item_text);
         }
     }
 
