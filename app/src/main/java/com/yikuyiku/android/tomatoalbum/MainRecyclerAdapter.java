@@ -2,12 +2,10 @@ package com.yikuyiku.android.tomatoalbum;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,14 +34,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_item_layout, parent, false);
         ViewHolder holder = new ViewHolder(view);
+        ViewGroup.LayoutParams params = holder.imageView.getLayoutParams();
+        params.height = APPCONF.getGridItemHeightDefault();
+        holder.imageView.setLayoutParams(params);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        ViewGroup.LayoutParams imageLayoutParams = holder.imageView.getLayoutParams();
-        imageLayoutParams.height = 200;
-        holder.imageView.setLayoutParams(imageLayoutParams);
         String imgurl = stringList.get(position);
         Glide.with(context).load(imgurl).listener(new RequestListener<Drawable>() {
             @Override
@@ -53,14 +51,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                if (holder.imageView == null) {
-                    return false;
-                }
                 ViewGroup.LayoutParams params = holder.imageView.getLayoutParams();
-                Log.d("123(%d)", String.valueOf(holder.imageView.getWidth()));
-                int vw = holder.imageView.getWidth() - holder.imageView.getPaddingLeft() - holder.imageView.getPaddingRight();
-                int vh = (int) ((float)vw/(float) 1.78);
-                params.height = vh + holder.imageView.getPaddingTop() + holder.imageView.getPaddingBottom();
+                params.height = (int) (APPCONF.getGridItemWidth() / ((float) resource.getIntrinsicWidth() / (float)  resource.getIntrinsicHeight()));
                 holder.imageView.setLayoutParams(params);
                 return false;
             }
