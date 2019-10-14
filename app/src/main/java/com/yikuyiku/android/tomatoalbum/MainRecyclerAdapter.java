@@ -1,5 +1,6 @@
 package com.yikuyiku.android.tomatoalbum;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
