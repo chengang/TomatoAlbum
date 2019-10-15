@@ -15,7 +15,7 @@ public class MediaSearcher {
                 null,
                 null,
                 null,
-                null,
+                MediaStore.Images.Media._ID + " DESC",
                 null
                 );
         cursor.moveToFirst();
