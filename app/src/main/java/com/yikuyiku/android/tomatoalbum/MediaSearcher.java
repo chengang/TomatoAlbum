@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MediaSearcher {
-    public List<String> getAllImages() {
+    static public List<String> getAllImages() {
         Cursor cursor = MyApplication.globalContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null,

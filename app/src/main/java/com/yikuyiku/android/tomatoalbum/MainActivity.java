@@ -4,21 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeContainer;
     MainRecyclerAdapter mainRecyclerAdapter;
     StaggeredGridLayoutManager layoutManager;
-    private List<String> stringList = new ArrayList<>();
+    private List<String> mediaUriList = new ArrayList<>();
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -75,10 +68,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mainRecyclerAdapter = new MainRecyclerAdapter();
-        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
-        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
-        stringList.add("http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg");
-        mainRecyclerAdapter.setDataSet(stringList);
+        mediaUriList = MediaSearcher.getAllImages();
+        mainRecyclerAdapter.setDataSet(mediaUriList);
         recyclerView.setAdapter(mainRecyclerAdapter);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -91,12 +82,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadImages() {
-        stringList = new MediaSearcher().getAllImages();
-        mainRecyclerAdapter.setDataSet(stringList);
+        mediaUriList = MediaSearcher.getAllImages();
+        mainRecyclerAdapter.setDataSet(mediaUriList);
         mainRecyclerAdapter.notifyDataSetChanged();
 
         Toast.makeText(getApplicationContext(),"Loaded Images", Toast.LENGTH_LONG).show();
         swipeContainer.setRefreshing(false);
-        new MediaSearcher().getAllImages();
     }
 }
