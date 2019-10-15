@@ -1,12 +1,12 @@
 package com.yikuyiku.android.tomatoalbum;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,12 +21,12 @@ import com.bumptech.glide.request.target.Target;
 import java.util.List;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
-    private List<String> stringList;
+    private List<String> mediaUriList;
     private Context context;
 
     public MainRecyclerAdapter() {}
 
-    public void setDataSet(List<String> stringList1) { stringList = stringList1; }
+    public void setDataSet(List<String> allMediaUriList) { mediaUriList = allMediaUriList; }
 
     @NonNull
     @Override
@@ -34,16 +34,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_item_layout, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
         ViewGroup.LayoutParams params = holder.imageView.getLayoutParams();
         params.height = APPCONF.getGridItemHeightDefault();
         holder.imageView.setLayoutParams(params);
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = holder.getAdapterPosition();
+                String imageUri = mediaUriList.get(pos);
+                Toast.makeText(view.getContext(), imageUri, Toast.LENGTH_SHORT).show();
+            }
+        });
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        String imgurl = stringList.get(position);
+        String imgurl = mediaUriList.get(position);
         Glide.with(context).load(imgurl).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -62,7 +71,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return stringList.size();
+        return mediaUriList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
