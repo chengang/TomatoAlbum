@@ -44,7 +44,16 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             public void onClick(View view) {
                 int pos = holder.getAdapterPosition();
                 String imageUri = mediaUriList.get(pos);
+                //holder.itemView.setSelected(true);
                 Toast.makeText(view.getContext(), imageUri, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(view.getContext(), "Long Clicked", Toast.LENGTH_SHORT).show();
+                return true; // shake or not
             }
         });
         return holder;
