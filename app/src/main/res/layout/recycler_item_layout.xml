@@ -26,6 +26,8 @@
             android:layout_gravity="right"
             android:buttonTint="#b38bff"
             android:checked="true"
+            android:clickable="false"
+            android:enabled="false"
             android:visibility="invisible"
             />
 
