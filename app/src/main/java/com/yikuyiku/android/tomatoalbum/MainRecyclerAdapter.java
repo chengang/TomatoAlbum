@@ -48,6 +48,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 int pos = holder.getAdapterPosition();
                 String imageUri = mediaUriList.get(pos);
                 Intent intent = new Intent(context, ImageFullscreenActivity.class);
+                intent.putExtra("imageUri", imageUri);
                 context.startActivity(intent);
                 Toast.makeText(view.getContext(), imageUri, Toast.LENGTH_SHORT).show();
             }
