@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
@@ -52,8 +54,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Toast.makeText(view.getContext(), "Long Clicked", Toast.LENGTH_SHORT).show();
-                return true; // shake or not
+                int pos = holder.getAdapterPosition();
+                if (holder.checkBox.getVisibility() != View.VISIBLE) {
+                    holder.checkBox.setVisibility(View.VISIBLE);
+                } else {
+                    holder.checkBox.setVisibility(View.INVISIBLE);
+                }
+                return true; // shake or not, eat the long touch event or not
             }
         });
         return holder;
@@ -85,10 +92,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        CheckBox checkBox;
 
         public ViewHolder(View view) {
             super(view);
             imageView = (ImageView) view.findViewById(R.id.recycler_item_image);
+            checkBox = (CheckBox) view.findViewById(R.id.recycler_item_checkbox);
         }
     }
 }
