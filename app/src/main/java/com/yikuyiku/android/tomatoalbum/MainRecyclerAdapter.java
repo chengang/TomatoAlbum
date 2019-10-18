@@ -1,6 +1,7 @@
 package com.yikuyiku.android.tomatoalbum;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             public void onClick(View view) {
                 int pos = holder.getAdapterPosition();
                 String imageUri = mediaUriList.get(pos);
-                //holder.itemView.setSelected(true);
+                Intent intent = new Intent(context, ImageFullscreenActivity.class);
+                context.startActivity(intent);
                 Toast.makeText(view.getContext(), imageUri, Toast.LENGTH_SHORT).show();
             }
         });
