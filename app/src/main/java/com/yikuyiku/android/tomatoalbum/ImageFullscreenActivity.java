@@ -3,6 +3,7 @@ package com.yikuyiku.android.tomatoalbum;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
@@ -31,5 +32,12 @@ public class ImageFullscreenActivity extends AppCompatActivity {
 
         String imageUri = MySession.getSystemImages().get(pos).getUri();
         Glide.with(this).load(imageUri).into(imageView);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }
