@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MediaSearcher {
-    static public List<String> getAllImages() {
+    static public ArrayList<String> getAllImages() {
         Cursor cursor = MyApplication.globalContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null,
@@ -20,7 +20,7 @@ public class MediaSearcher {
                 );
         cursor.moveToFirst();
 
-        List<String> imagePathList = new ArrayList<>();
+        ArrayList<String> imagePathList = new ArrayList<>();
         int indexImagePath = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         while(cursor.moveToNext()) {
             imagePathList.add(cursor.getString(indexImagePath));

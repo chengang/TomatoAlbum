@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeContainer;
     MainRecyclerAdapter mainRecyclerAdapter;
     StaggeredGridLayoutManager layoutManager;
-    private List<String> mediaUriList = new ArrayList<>();
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -68,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
         mainRecyclerAdapter = new MainRecyclerAdapter();
-        mediaUriList = MediaSearcher.getAllImages();
-        mainRecyclerAdapter.setDataSet(mediaUriList);
+        MySession.setSystemImages(MediaSearcher.getAllImages());
         recyclerView.setAdapter(mainRecyclerAdapter);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -82,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadImages() {
-        mediaUriList = MediaSearcher.getAllImages();
-        mainRecyclerAdapter.setDataSet(mediaUriList);
+        MySession.setSystemImages(MediaSearcher.getAllImages());
         mainRecyclerAdapter.notifyDataSetChanged();
 
         Toast.makeText(getApplicationContext(),"Loaded Images", Toast.LENGTH_LONG).show();

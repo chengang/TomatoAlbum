@@ -24,12 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
-    private List<String> mediaUriList;
     private Context context;
 
     public MainRecyclerAdapter() {}
-
-    public void setDataSet(List<String> allMediaUriList) { mediaUriList = allMediaUriList; }
 
     @NonNull
     @Override
@@ -45,12 +42,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pos = holder.getAdapterPosition();
-                String imageUri = mediaUriList.get(pos);
                 Intent intent = new Intent(context, ImageFullscreenActivity.class);
-                intent.putExtra("imageUri", imageUri);
+                intent.putExtra("mediaType", "systemImage");
+                intent.putExtra("pos", holder.getAdapterPosition());
                 context.startActivity(intent);
-                Toast.makeText(view.getContext(), imageUri, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -60,8 +55,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 int pos = holder.getAdapterPosition();
                 if (holder.checkBox.getVisibility() != View.VISIBLE) {
                     holder.checkBox.setVisibility(View.VISIBLE);
+                    MySession.getSystemImages().get(pos).setSelected(true);
                 } else {
                     holder.checkBox.setVisibility(View.INVISIBLE);
+                    MySession.getSystemImages().get(pos).setSelected(false);
                 }
                 return true; // shake or not, eat the long touch event or not
             }
@@ -71,8 +68,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        String imgurl = mediaUriList.get(position);
-        Glide.with(context).load(imgurl).listener(new RequestListener<Drawable>() {
+        String imgUri = MySession.getSystemImages().get(position).getUri();
+        Glide.with(context).load(imgUri).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 return false;
@@ -90,7 +87,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return mediaUriList.size();
+        return MySession.getSystemImages().size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
