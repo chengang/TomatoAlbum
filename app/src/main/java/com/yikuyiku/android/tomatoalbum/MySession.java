@@ -7,8 +7,12 @@ import java.util.HashMap;
 public final class MySession {
     static private ArrayList<MyItem> systemImages;
 
+    static private String currentTab;
+    static private int itemPosition;
+
     static {
         systemImages = new ArrayList<>();
+        currentTab = "systemImage";
     }
 
     static public void setSystemImages(ArrayList<String> systemImageUris) {
@@ -22,4 +26,7 @@ public final class MySession {
     static public ArrayList<MyItem> getSystemImages() {
         return systemImages;
     }
+
+    static public void setItemPosition(int position) { itemPosition = position; }
+    static public int getItemPosition() { return itemPosition; }
 }
