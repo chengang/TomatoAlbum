@@ -7,11 +7,16 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.TableLayout;
 import android.widget.Toast;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +59,18 @@ public class MainActivity extends AppCompatActivity {
                     new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
         }
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, true, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText("123");
+            }
+        });
+        //tabLayoutMediator.attach();
+
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         layoutManager = new StaggeredGridLayoutManager(APPCONF.getGridSpanCount(), StaggeredGridLayoutManager.VERTICAL);
