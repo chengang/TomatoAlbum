@@ -62,20 +62,21 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+        viewPager2.setAdapter(new ViewPager2Adapter());
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, true, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText("123");
+                tab.setText("123"+ position);
             }
         });
-        //tabLayoutMediator.attach();
+        tabLayoutMediator.attach();
 
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        layoutManager = new StaggeredGridLayoutManager(APPCONF.getGridSpanCount(), StaggeredGridLayoutManager.VERTICAL);
+//        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        layoutManager = new StaggeredGridLayoutManager(APPCONF.getGridSpanCount(), StaggeredGridLayoutManager.VERTICAL);
 //        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
-        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setLayoutManager(layoutManager);
 //        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //            @Override
 //            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -83,17 +84,17 @@ public class MainActivity extends AppCompatActivity {
 //                layoutManager.invalidateSpanAssignments();
 //            }
 //        });
-        mainRecyclerAdapter = new MainRecyclerAdapter();
-        MySession.setSystemImages(MediaSearcher.getAllImages());
-        recyclerView.setAdapter(mainRecyclerAdapter);
-
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadImages();
-            }
-        });
+//        mainRecyclerAdapter = new MainRecyclerAdapter();
+//        MySession.setSystemImages(MediaSearcher.getAllImages());
+//        recyclerView.setAdapter(mainRecyclerAdapter);
+//
+//        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                loadImages();
+//            }
+//        });
     }
 
     private void loadImages() {
