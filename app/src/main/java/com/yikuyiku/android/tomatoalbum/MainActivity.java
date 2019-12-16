@@ -27,17 +27,16 @@ public class MainActivity extends AppCompatActivity {
 
     SwipeRefreshLayout swipeContainer;
     MainRecyclerAdapter mainRecyclerAdapter;
-    StaggeredGridLayoutManager layoutManager;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (
-                        (grantResults.length == 1)
-                                && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // PERMISSION GRANTED
-                } else {
+                    // PERMISSION NOT GRANTED
+                       (grantResults.length != 1)
+                       || (grantResults[0] != PackageManager.PERMISSION_GRANTED)
+                ) {
                     finish();
                 }
                 break;
