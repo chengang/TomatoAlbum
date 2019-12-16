@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, true, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText("123"+ position);
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int pos) {
+                tab.setText(STATIC.tabNames[pos]);
             }
         });
         tabLayoutMediator.attach();
