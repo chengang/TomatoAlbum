@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.ViewHolder> {
 
@@ -26,21 +28,33 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.textView.setText(STATIC.tabNames[position]);
+        holder.recyclerView.setAdapter(new MainRecyclerAdapter());
+        holder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MySession.setSystemImages(MediaSearcher.getAllImages());
+                holder.recyclerView.getAdapter().notifyDataSetChanged();
+                holder.swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return STATIC.tabNames.length;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
+        SwipeRefreshLayout swipeRefreshLayout;
         TextView textView;
+
         public ViewHolder(View view) {
             super(view);
             recyclerView = view.findViewById(R.id.recycler_view);
+            swipeRefreshLayout = view.findViewById(R.id.swipeContainer);
             textView = view.findViewById(R.id.test_text);
         }
     }
