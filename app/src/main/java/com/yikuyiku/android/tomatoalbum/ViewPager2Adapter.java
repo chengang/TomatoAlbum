@@ -29,7 +29,6 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.textView.setText(STATIC.tabNames[position]);
         holder.recyclerView.setAdapter(new MainRecyclerAdapter());
         holder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -49,13 +48,11 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
     static class ViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
         SwipeRefreshLayout swipeRefreshLayout;
-        TextView textView;
 
         public ViewHolder(View view) {
             super(view);
             recyclerView = view.findViewById(R.id.recycler_view);
             swipeRefreshLayout = view.findViewById(R.id.swipeContainer);
-            textView = view.findViewById(R.id.test_text);
         }
     }
 }
