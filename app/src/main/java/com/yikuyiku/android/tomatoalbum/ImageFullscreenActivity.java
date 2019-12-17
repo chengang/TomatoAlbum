@@ -31,7 +31,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.fullscreen_image);
 
         String imageUri = MySession.getSystemImages().get(pos).getUri();
-        Glide.with(this).load(imageUri).into(imageView);
+        Glide.with(this).load(imageUri).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
