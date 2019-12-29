@@ -10,14 +10,16 @@ import com.bumptech.glide.Glide;
 
 public class FullscreenFlipperAdapter extends BaseAdapter {
     private Context context;
+    private String mediaType;
 
-    public FullscreenFlipperAdapter(Context inContext) {
-        context = inContext;
+    public FullscreenFlipperAdapter(Context context, String mediaType) {
+        this.context = context;
+        this.mediaType = mediaType;
     }
 
     @Override
     public int getCount() {
-        return MediaLibrary.getSystemImages().size();
+        return MediaLibrary.getItems(this.mediaType).size();
     }
 
     @Override
@@ -42,7 +44,7 @@ public class FullscreenFlipperAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) view;
         }
-        Glide.with(context).load(MediaLibrary.getSystemImages().get(i).getUri()).into(imageView);
+        Glide.with(context).load(MediaLibrary.getItems(this.mediaType).get(i).getUri()).into(imageView);
         return imageView;
     }
 }

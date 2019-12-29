@@ -23,7 +23,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
         int pos = intent.getIntExtra("pos", 0);
         imageView = (ImageView) findViewById(R.id.fullscreen_image);
 
-        String imageUri = MediaLibrary.getSystemImages().get(pos).getUri();
+        String imageUri = MediaLibrary.getItems(mediaType).get(pos).getUri();
         Glide.with(this).load(imageUri).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {

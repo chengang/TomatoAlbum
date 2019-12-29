@@ -43,7 +43,7 @@ public final class MediaLibrary {
         }
     }
 
-    static public ArrayList<MyItem> getSystemImages() {
-        return mediaLibrary.get("Image");
+    static public ArrayList<MyItem> getItems(String mediaType) {
+        return mediaLibrary.get(mediaType);
     }
 }

@@ -42,7 +42,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ImageFullscreenActivity.class);
-                intent.putExtra("mediaType", "systemImage");
+                intent.putExtra("mediaType", "Image");
                 intent.putExtra("pos", holder.getAdapterPosition());
                 context.startActivity(intent);
             }
@@ -54,10 +54,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 int pos = holder.getAdapterPosition();
                 if (holder.checkBox.getVisibility() != View.VISIBLE) {
                     holder.checkBox.setVisibility(View.VISIBLE);
-                    MediaLibrary.getSystemImages().get(pos).setSelected(true);
+                    MediaLibrary.getItems(mediaType).get(pos).setSelected(true);
                 } else {
                     holder.checkBox.setVisibility(View.INVISIBLE);
-                    MediaLibrary.getSystemImages().get(pos).setSelected(false);
+                    MediaLibrary.getItems(mediaType).get(pos).setSelected(false);
                 }
                 return true; // shake or not, eat the long touch event or not
             }
@@ -67,7 +67,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        String imgUri = MediaLibrary.getSystemImages().get(position).getUri();
+        String imgUri = MediaLibrary.getItems(this.mediaType).get(position).getUri();
         Glide.with(context).load(imgUri).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -86,7 +86,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return MediaLibrary.getSystemImages().size();
+        return MediaLibrary.getItems(this.mediaType).size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
