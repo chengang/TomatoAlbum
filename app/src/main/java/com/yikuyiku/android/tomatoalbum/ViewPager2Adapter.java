@@ -25,11 +25,12 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.recyclerView.setAdapter(new MainRecyclerAdapter("Image"));
+        final String mediaType = STATIC.tabNames[position];
+        holder.recyclerView.setAdapter(new MainRecyclerAdapter(mediaType));
         holder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                MediaLibrary.refreshLibrary("Image");
+                MediaLibrary.refreshLibrary(mediaType);
                 holder.recyclerView.getAdapter().notifyDataSetChanged();
                 holder.swipeRefreshLayout.setRefreshing(false);
             }
