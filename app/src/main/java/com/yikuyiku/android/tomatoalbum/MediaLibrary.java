@@ -4,22 +4,20 @@ package com.yikuyiku.android.tomatoalbum;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public final class MySession {
+public final class MediaLibrary {
     static private HashMap<String, ArrayList<MyItem>> mediaLibrary;
-
-    static private String currentTab;
-    static private int itemPosition;
 
     static {
         mediaLibrary = new HashMap<>();
         mediaLibrary.put("Image", new ArrayList<MyItem>());
         mediaLibrary.put("Video", new ArrayList<MyItem>());
         mediaLibrary.put("Audio", new ArrayList<MyItem>());
-        currentTab = "Images";
     }
 
     static public void initMediaLibrary() {
         refreshLibrary("Image");
+        refreshLibrary("Video");
+        refreshLibrary("Audio");
     }
 
     static public void refreshLibrary(String mediaType) {
@@ -30,6 +28,9 @@ public final class MySession {
                 break;
             case "Video":
                 mediaPaths = MediaSearcher.getAllVideos();
+                break;
+            case "Audio":
+                mediaPaths = MediaSearcher.getAllAudios();
                 break;
             default:
                 break;
@@ -45,7 +46,4 @@ public final class MySession {
     static public ArrayList<MyItem> getSystemImages() {
         return mediaLibrary.get("Image");
     }
-
-    static public void setItemPosition(int position) { itemPosition = position; }
-    static public int getItemPosition() { return itemPosition; }
 }

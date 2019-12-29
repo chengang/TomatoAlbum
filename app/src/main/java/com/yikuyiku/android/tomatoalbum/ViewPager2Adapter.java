@@ -1,12 +1,8 @@
 package com.yikuyiku.android.tomatoalbum;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,11 +25,11 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.recyclerView.setAdapter(new MainRecyclerAdapter());
+        holder.recyclerView.setAdapter(new MainRecyclerAdapter("Image"));
         holder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                MySession.refreshLibrary("Image");
+                MediaLibrary.refreshLibrary("Image");
                 holder.recyclerView.getAdapter().notifyDataSetChanged();
                 holder.swipeRefreshLayout.setRefreshing(false);
             }

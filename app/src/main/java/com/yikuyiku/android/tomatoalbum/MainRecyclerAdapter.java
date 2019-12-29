@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,13 +19,13 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
     private Context context;
+    private String mediaType;
 
-    public MainRecyclerAdapter() {}
+    public MainRecyclerAdapter(String mediaType) {
+        this.mediaType = mediaType;
+    }
 
     @NonNull
     @Override
@@ -55,10 +54,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 int pos = holder.getAdapterPosition();
                 if (holder.checkBox.getVisibility() != View.VISIBLE) {
                     holder.checkBox.setVisibility(View.VISIBLE);
-                    MySession.getSystemImages().get(pos).setSelected(true);
+                    MediaLibrary.getSystemImages().get(pos).setSelected(true);
                 } else {
                     holder.checkBox.setVisibility(View.INVISIBLE);
-                    MySession.getSystemImages().get(pos).setSelected(false);
+                    MediaLibrary.getSystemImages().get(pos).setSelected(false);
                 }
                 return true; // shake or not, eat the long touch event or not
             }
@@ -68,7 +67,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        String imgUri = MySession.getSystemImages().get(position).getUri();
+        String imgUri = MediaLibrary.getSystemImages().get(position).getUri();
         Glide.with(context).load(imgUri).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -87,7 +86,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return MySession.getSystemImages().size();
+        return MediaLibrary.getSystemImages().size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

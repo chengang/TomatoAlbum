@@ -8,8 +8,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-
 public class FullscreenFlipperAdapter extends BaseAdapter {
     private Context context;
 
@@ -19,7 +17,7 @@ public class FullscreenFlipperAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return MySession.getSystemImages().size();
+        return MediaLibrary.getSystemImages().size();
     }
 
     @Override
@@ -44,7 +42,7 @@ public class FullscreenFlipperAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) view;
         }
-        Glide.with(context).load(MySession.getSystemImages().get(i).getUri()).into(imageView);
+        Glide.with(context).load(MediaLibrary.getSystemImages().get(i).getUri()).into(imageView);
         return imageView;
     }
 }
