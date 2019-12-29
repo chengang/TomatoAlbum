@@ -33,7 +33,7 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
         holder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                MySession.setSystemImages(MediaSearcher.getAllImages());
+                MySession.refreshLibrary("Image");
                 holder.recyclerView.getAdapter().notifyDataSetChanged();
                 holder.swipeRefreshLayout.setRefreshing(false);
             }

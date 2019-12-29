@@ -67,6 +67,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         tabLayoutMediator.attach();
-        MySession.setSystemImages(MediaSearcher.getAllImages());
+        MySession.initMediaLibrary();
     }
 }
