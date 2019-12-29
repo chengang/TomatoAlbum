@@ -3,6 +3,7 @@ package com.yikuyiku.android.tomatoalbum;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,18 +43,23 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent;
                 switch (mediaType) {
                     case "Image":
-                        Intent intent = new Intent(context, ImageFullscreenActivity.class);
+                        intent = new Intent(context, ImageFullscreenActivity.class);
                         intent.putExtra("mediaType", "Image");
                         intent.putExtra("pos", holder.getAdapterPosition());
                         context.startActivity(intent);
                         break;
                     case "Video":
-                        Log.d("123223", "Video: "+holder.getAdapterPosition());
+                        intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(
+                                Uri.parse(MediaLibrary.getItems("Video").get(holder.getAdapterPosition()).getUri())
+                                , "video/*");
+                        context.startActivity(intent);
                         break;
                     case "audio":
-                        Log.d("123223", "Audio: "+holder.getAdapterPosition());
+                        //Log.d("123223", "Audio: "+holder.getAdapterPosition());
                         break;
                     default:
                         break;
