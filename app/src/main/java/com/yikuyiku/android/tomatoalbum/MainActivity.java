@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -49,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
-                Toast.makeText(this, "searching", Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.toolbar), "searching", Snackbar.LENGTH_SHORT).show();
+                //Toast.makeText(this, "searching", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
