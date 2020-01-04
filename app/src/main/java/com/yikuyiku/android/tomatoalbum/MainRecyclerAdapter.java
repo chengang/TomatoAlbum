@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +21,8 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+
+import java.io.File;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
     private Context context;
@@ -53,9 +56,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                         break;
                     case "Video":
                         intent = new Intent(Intent.ACTION_VIEW);
+                        Uri uri = FileProvider.getUriForFile(context
+                                , BuildConfig.APPLICATION_ID.concat(".provider")
+                                , new File("/", MediaLibrary.getItems("Video").get(holder.getAdapterPosition()).getUri()));
                         intent.setDataAndType(
-                                Uri.parse(MediaLibrary.getItems("Video").get(holder.getAdapterPosition()).getUri())
+                                uri
                                 , "video/*");
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         context.startActivity(intent);
                         break;
                     case "audio":
